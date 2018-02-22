@@ -75,7 +75,7 @@ Exercise 2A: Find the 7th term of the fibonacci sequence by using the
 the value `best_fib`.
 ......................................................................*)
 
-let best_fib = None ;;
+let best_fib = Fibonacci.eval 7 ;;
 
 (*......................................................................
 Exercise 2B: Find the last element of the `Studyplan` sequence, and
@@ -84,7 +84,7 @@ various values in the Studyplan module do to understand how to use
 them.
 ......................................................................*)
 
-let last_class = None ;;
+let last_class = Studyplan.eval ((Array.length Studyplan.courses) -1);;
 
 (*......................................................................
 We hope you'll find the module system easy to use and convenient, once
@@ -106,11 +106,14 @@ functions that have the same name and type.
 ......................................................................*)
 
 (* Uncomment when ready! *)
-(*
+
 module type Sequence =
   sig
+  type length = Infinite | Finite of int
+  val length : length
+  val name : string
   end;;
-*)
+
 
 (*......................................................................
 Exercise 2D: Now, create new modules, named SequenceFibonacci,

@@ -60,17 +60,24 @@ module IntListStack =
     type stack = int list
 
     (* Returns an empty stack *)
-    let empty () : stack = failwith "not implemented"
+    let empty () : stack = []
 
     (* Add an element to the top of the stack *)
-    let push (i : int) (s : stack) : stack = failwith "not implemented"
+    let push (i : int) (s : stack) : stack = s @ [i] 
 
     (* Return the value of the topmost element on the stack *)
-    let top (s : stack) : int = failwith "not implemented"
+    let rec top (s : stack) : int = 
+      match s with
+      | [] -> raise EmptyStack
+      | h :: [] -> h
+      | h :: t -> top t ;;
+
 
     (* Return a modified stack with the topmost element removed *)
-    let pop (s : stack) : stack = failwith "not implemented"
-  end ;;
+    let pop (s : stack) : stack = 
+      match s with
+      | [] -> EmptyStack
+      | _ :: t -> t ;;
 
 (* Now let's use this implementation and consider some implications.
 
@@ -81,14 +88,14 @@ the values "5" and then "1" pushed in that order.
 ......................................................................*)
 
 let small_stack () : IntListStack.stack =
-  failwith "not implemented" ;;
+  IntListStack.push 5 (IntListStack.push 1 (IntListStack.empty ()))  ;;
 
 (*......................................................................
 Exercise 3C: Now, use IntListStack methods to write an expression that
 defines last_el as the value of the topmost element from small_stack.
 ......................................................................*)
 
-let last_el = 0;;
+let last_el = IntListStack.top (small_stack ());;
 
 (* Based on our requirements above, what should last_el contain?
 
